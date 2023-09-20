@@ -1,0 +1,16 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureSettings": {
+        "CMAKE_BUILD_TYPE": "${buildType}"
+    },
+    "cmake.buildBeforeRun": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "editor.formatOnSave": true,
+    "cortex-debug.variableUseNaturalFormat": false,
+    "files.associations": {
+        "main.h": "c",
+        "stm32wbxx_hal.h": "c",
+        "*.tcc": "c"
+    },
+}

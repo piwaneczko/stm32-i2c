@@ -1,0 +1,151 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build project",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${command:cmake.buildDirectory}",
+                "-j",
+                "8"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Re-build project",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${command:cmake.buildDirectory}",
+                "--clean-first",
+                "-v",
+                "-j",
+                "8"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+        },
+        {
+            "type": "shell",
+            "label": "Clean project",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${command:cmake.buildDirectory}",
+                "--target",
+                "clean"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: Flash project (SWD)",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--connect",
+                "port=swd",
+                "--download",
+                "${command:cmake.launchTargetPath}",
+                "-hardRst"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: Flash project with defined serial number (SWD) - you must set serial number first",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--connect",
+                "port=swd",
+                "sn=<yourserialnumber>",
+                "--download",
+                "${command:cmake.launchTargetPath}",
+                "-hardRst"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: List all available communication interfaces",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--list",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "JLink: Flash project (SWD)",
+            "command": "JLink",
+            "args": [
+                "-device",
+                "STM32WB55VG",
+                "-if",
+                "swd",
+                "-speed",
+                "4000",
+                "-commandfile",
+                "build/flash.jlink"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "USB1: Flash Wireless Stack",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "-c port=usb1",
+                "-fwupgrade binaries/stm32wb5x_BLE_Stack_full_extended_fw.bin 0x080C5000 firstinstall=0 startstack=1",
+                "-v"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "USB1: Start Wireless Stack",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "-c port=usb1",
+                "-startwirelessstack"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default-win",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "${presetName}"
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "default-win"
+        },
+        {
+            "name": "RelWithDebInfo",
+            "inherits": "default-win"
+        },
+        {
+            "name": "Release",
+            "inherits": "default-win"
+        },
+        {
+            "name": "default-linux",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "${presetName}"
+            }
+        },
+        {
+            "name": "Linux-Debug",
+            "inherits": "default-linux",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Linux-RelWithDebInfo",
+            "inherits": "default-linux",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "Linux-Release",
+            "inherits": "default-linux",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ]
+}

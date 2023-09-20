@@ -1,0 +1,105 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug - STLink-V2",
+            "cwd": "${workspaceFolder}", //Path from where commands are executed
+            "type": "cortex-debug", //Debug 
+            "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+            "request": "launch", //Use "attach" to connect to target w/o elf download
+            "servertype": "stlink", //Use stlink setup of cortex-M debug
+            "device": "STM32WB55VG", //MCU used
+            "interface": "swd", //Interface setup
+            "serialNumber": "", //Set ST-Link ID if you use multiple at the same time
+            "runToEntryPoint": "main", //Run to main and stop there
+            "svdFile": "${env:ST_CMSIS_SVD_DIR}/STM32WB55_CM4.svd", //SVD file to see registers
+            "v1": false,
+            "showDevDebugOutput": "both",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 20
+            }
+        },
+        {
+            "name": "Attach - STLink-V2",
+            "cwd": "${workspaceFolder}", //Path from where commands are executed
+            "type": "cortex-debug", //Debug 
+            "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+            "request": "attach", //Use "attach" to connect to target w/o elf download
+            "servertype": "stlink", //Use stlink setup of cortex-M debug
+            "device": "STM32WB55VG", //MCU used
+            "interface": "swd", //Interface setup
+            "serialNumber": "", //Set ST-Link ID if you use multiple at the same time
+            "runToEntryPoint": "main", //Run to main and stop there
+            "svdFile": "${env:ST_CMSIS_SVD_DIR}/STM32WB55_CM4.svd", //SVD file to see registers
+            "v1": false,
+            "showDevDebugOutput": "both",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 20
+            }
+        },
+        {
+            "name": "Debug - JLink",
+            "cwd": "${workspaceFolder}", //Path from where commands are executed
+            "type": "cortex-debug", //Debug 
+            "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+            "request": "launch", //Use "attach" to connect to target w/o elf download
+            "servertype": "jlink", //Use stlink setup of cortex-M debug
+            "device": "STM32WB55VG", //MCU used
+            "interface": "swd", //Interface setup
+            "serialNumber": "", //Set JLink ID if you use multiple at the same time
+            "runToEntryPoint": "main", //Run to main and stop there
+            "svdFile": "${env:ST_CMSIS_SVD_DIR}/STM32WB55_CM4.svd", //SVD file to see registers
+            "showDevDebugOutput": "both",
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 32000000,
+                "swoFrequency": 2000000,
+                "source": "probe",
+                "decoders": [
+                    {
+                        "type": "console",
+                        "label": "ITM",
+                        "port": 0
+                    }
+                ]
+            },
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 20,
+            }
+        },
+        {
+            "name": "Attach - JLink",
+            "cwd": "${workspaceFolder}", //Path from where commands are executed
+            "type": "cortex-debug", //Debug 
+            "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+            "request": "attach", //Use "attach" to connect to target w/o elf download
+            "servertype": "jlink", //Use stlink setup of cortex-M debug
+            "device": "STM32WB55VG", //MCU used
+            "interface": "swd", //Interface setup
+            "serialNumber": "", //Set JLink ID if you use multiple at the same time
+            "runToEntryPoint": "main", //Run to main and stop there
+            "svdFile": "${env:ST_CMSIS_SVD_DIR}/STM32WB55_CM4.svd", //SVD file to see registers
+            "showDevDebugOutput": "both",
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 32000000,
+                "swoFrequency": 2000000,
+                "source": "probe",
+                "decoders": [
+                    {
+                        "type": "console",
+                        "label": "ITM",
+                        "port": 0
+                    }
+                ]
+            },
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 20,
+            }
+        },
+    ]
+}
