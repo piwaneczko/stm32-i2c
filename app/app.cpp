@@ -58,7 +58,8 @@ void App::init() {
 }
 
 void App::process() {
-    HAL_Delay(1000);
+    baro_.receiveRawData(Asynchronic::Blocking);
+    HAL_Delay(100);
 }
 
 void App::error() {

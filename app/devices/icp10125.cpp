@@ -71,7 +71,7 @@ void ICP10125::init(SCI::CompletedEventHandler completedEvent) {
 }
 
 bool ICP10125::receiveRawData(Asynchronic async) {
-    return false;
+    return isConnected();
 }
 
 void ICP10125::reset() {
