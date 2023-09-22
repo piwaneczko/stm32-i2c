@@ -21,6 +21,9 @@ class I2C : public SCI {
 
     bool read(uint8_t* data, uint16_t len, Asynchronic async = Asynchronic::Blocking) const override;
     bool write(uint8_t* data, uint16_t len, Asynchronic async = Asynchronic::Blocking) const override;
+
+    bool read(uint8_t reg, uint8_t& value) const override;
+    bool write(uint8_t reg, uint8_t value) const override;
 };
 
 #endif  // IG_I2C_H

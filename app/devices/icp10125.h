@@ -5,7 +5,8 @@
 
 class ICP10125 {
    private:
-    float sensorConstants[4];  // OTP value
+    float sensorCal[4];  // OTP value
+
    public:
     using SCI_TYPE = I2C;
     ICP10125(SCI& sci);
@@ -15,6 +16,8 @@ class ICP10125 {
     void init(SCI::CompletedEventHandler completedEvent);
     bool receiveRawData(Asynchronic async);
     void reset();
+
+    bool isConnected() const;
 
     SCI& sci;
     uint8_t rawData[1] = {0x00};

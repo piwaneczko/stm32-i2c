@@ -98,3 +98,11 @@ bool I2C::write(uint8_t* data, uint16_t len, Asynchronic async) const {
     }
     return lastError == HAL_OK;
 }
+
+bool I2C::read(uint8_t reg, uint8_t& value) const {
+    return HAL_I2C_Mem_Read(i2c_, devAddress_, reg | 0b10000000, 1, &value, 1, HAL_MAX_DELAY) == HAL_OK;
+}
+
+bool I2C::write(uint8_t reg, uint8_t value) const {
+    return HAL_I2C_Mem_Write(i2c_, devAddress_, reg, 1, &value, 1, HAL_MAX_DELAY) == HAL_OK;
+}
