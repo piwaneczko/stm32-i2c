@@ -2,6 +2,8 @@
 
 #include <main.h>
 
+#include <cassert>
+
 #include "log.h"
 
 static Log log{Log::Level::Debug, "APP"};
@@ -46,19 +48,32 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef* hi2c) {
     HAL_I2C_Init(hi2c);
 }
 
-App::App() : baroSci_(&hi2c1, ICP10125::DEVICE_ID), baro_(baroSci_), updateTimer_(&htim2, 10, 10) {
+App::App()
+    : baroSci_(&hi2c1, ICP10125::DEVICE_ID),
+      baro_(baroSci_),
+      updateTimer_(&htim2, 100, 10),
+      leds_{
+          {LD2_GPIO_Port, LD2_Pin},
+          {LD3_GPIO_Port, LD3_Pin},
+      } {
     updateTimer_.timerElapsed = [&](const Timer& t) { timerElapsed(t); };
 }
 
 void App::init() {
-    baro_.init(nullptr);
+    baro_.init([&](const SCI& sci) {
+        leds_[0].toggle();
+        leds_[1].toggle();
+    });
 
     HAL_TIM_Base_Start_IT(&htim2);
-    log.info("initialized");
+
+    if (baroSci_.initialized) {
+        log.info("initialized");
+        leds_[0].toggle();
+    }
 }
 
 void App::process() {
-    baro_.receiveRawData(Asynchronic::Blocking);
     HAL_Delay(100);
 }
 
@@ -68,5 +83,6 @@ void App::error() {
 
 void App::timerElapsed(const Timer& timer) {
     if (&timer == &updateTimer_) {
+        baro_.receiveRawData(Asynchronic::IT);
     }
 }

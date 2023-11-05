@@ -11,7 +11,7 @@
             "device": "STM32WB55VG", //MCU used
             "interface": "swd", //Interface setup
             "serialNumber": "", //Set ST-Link ID if you use multiple at the same time
-            "runToEntryPoint": "main", //Run to main and stop there
+            //"runToEntryPoint": "main", //Run to main and stop there
             "svdFile": "${env:ST_CMSIS_SVD_DIR}/STM32WB55_CM4.svd", //SVD file to see registers
             "v1": false,
             "showDevDebugOutput": "both",

@@ -60,8 +60,8 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_MEMORYMAP_Init(void);
-static void MX_I2C1_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,8 +105,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USB_PCD_Init();
   MX_MEMORYMAP_Init();
-  MX_I2C1_Init();
   MX_TIM2_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
     AppInit();
   /* USER CODE END 2 */
@@ -116,8 +116,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    AppMainRoutineProcess();
+
     /* USER CODE BEGIN 3 */
+    AppMainRoutineProcess();
   }
   /* USER CODE END 3 */
 }

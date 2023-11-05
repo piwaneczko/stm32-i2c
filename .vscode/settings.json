@@ -8,9 +8,4 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "editor.formatOnSave": true,
     "cortex-debug.variableUseNaturalFormat": false,
-    "files.associations": {
-        "main.h": "c",
-        "stm32wbxx_hal.h": "c",
-        "*.tcc": "c"
-    },
 }

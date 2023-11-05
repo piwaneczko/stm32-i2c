@@ -6,8 +6,6 @@
 
 HAL_StatusTypeDef I2C::lastError = HAL_OK;
 
-#define READ_SET_VALUE 0x00
-
 /**
  * @brief Construct a new I2C::I2C object
  *
@@ -52,9 +50,6 @@ void I2C::init() {}
  * @return false !HAL_OK
  */
 bool I2C::read(uint8_t* data, uint16_t len, Asynchronic async) const {
-    assert(len > 1);
-    memset(data + 1, READ_SET_VALUE, len - 1);
-    if (len > 2) data[0] |= 0b10000000;
     switch (async) {
         case Asynchronic::Blocking:
             lastError = HAL_I2C_Master_Receive(i2c_, (uint16_t)devAddress_, data, len, HAL_MAX_DELAY);

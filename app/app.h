@@ -1,7 +1,7 @@
 #ifndef IG_APP_H
 #define IG_APP_H
 
-#include "button.h"
+#include "gpio.h"
 #include "icp10125.h"
 #include "timer.h"
 
@@ -15,6 +15,8 @@ class App {
     ICP10125 baro_;
 
     Timer updateTimer_;
+
+    GPIO leds_[2];
 
     void timerElapsed(const Timer& timer);
 
