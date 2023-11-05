@@ -75,21 +75,25 @@ void ICP10125::init(SCI::CompletedEventHandler completedEvent) {
 
 void ICP10125::receiveRawData(Asynchronic async) {
     switch (state_) {
+        case Measuring:
+            if (!sci.read(rawData, sizeof(rawData), async)) {
+                state_ = Idle;
+                [[fallthrough]];
+            } else {
+                break;
+            }
+        case Processing:
+            if (processData() && receiveEventHandler_ != nullptr) {
+                receiveEventHandler_(sci);
+            }
+            state_ = Idle;
+            [[fallthrough]];
         case Idle:
             if (sci.write(ICP10125_MEASURE_N_MODE, sizeof(ICP10125_MEASURE_N_MODE))) {
                 state_ = Measuring;
             } else {
                 state_ = Error;
             }
-            break;
-        case Measuring:
-            sci.read(rawData, sizeof(rawData), async);
-            break;
-        case Processing:
-            if (processData() && receiveEventHandler_ != nullptr) {
-                receiveEventHandler_(sci);
-            }
-            state_ = Idle;
             break;
         case Error:
             state_ = Idle;
