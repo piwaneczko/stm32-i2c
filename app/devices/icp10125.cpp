@@ -72,12 +72,20 @@ void ICP10125::init(SCI::CompletedEventHandler completedEvent) {
         log.info("init successfull");
     }
 }
+static int readError = 0;
 
-void ICP10125::receiveRawData(Asynchronic async) {
+void ICP10125::receiveDataCompleted(const SCI& sci) {
+    if (state_ == Measuring) {
+        state_ = Processing;
+        receiveRawData();
+    }
+}
+void ICP10125::receiveRawData() {
     switch (state_) {
         case Measuring:
-            if (!sci.read(rawData, sizeof(rawData), async)) {
+            if (!sci.read(rawData, sizeof(rawData), Asynchronic::IT)) {
                 state_ = Idle;
+                readError++;
                 [[fallthrough]];
             } else {
                 break;
@@ -99,10 +107,6 @@ void ICP10125::receiveRawData(Asynchronic async) {
             state_ = Idle;
             break;
     }
-}
-
-void ICP10125::receiveDataCompleted(const SCI& sci) {
-    if (state_ == Measuring) state_ = Processing;
 }
 
 bool ICP10125::processData() {
@@ -130,6 +134,7 @@ bool ICP10125::processData() {
         pressure_ = A + B / (C + pdout);
         temp_ = -45.f + 175.f / 0x10000 * tdout;
         result = true;
+        pressureTimer_.update();
     }
     return result;
 }

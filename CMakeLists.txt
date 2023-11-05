@@ -48,6 +48,7 @@ set(sources_SRCS # Modified
     app/drivers/timer.cpp
     app/math/crc/crc8maxim.cpp
     app/utilities/log.cpp
+    app/utilities/performanceTimer.cpp
     Core/Src/main.c
     Core/Src/stm32wbxx_hal_msp.c
     Core/Src/stm32wbxx_it.c

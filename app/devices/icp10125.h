@@ -2,6 +2,7 @@
 #define IG_ICP10125_H
 
 #include "i2c.h"
+#include "performanceTimer.h"
 
 class ICP10125 {
    private:
@@ -12,6 +13,8 @@ class ICP10125 {
 
     float temp_;
     float pressure_;
+
+    PerformanceTimer pressureTimer_;
 
     SCI::CompletedEventHandler receiveEventHandler_;
     void receiveDataCompleted(const SCI& sci);
@@ -31,7 +34,7 @@ class ICP10125 {
     const static uint8_t DEVICE_ID = 0xC6;
 
     void init(SCI::CompletedEventHandler completedEvent);
-    void receiveRawData(Asynchronic async);
+    void receiveRawData();
     void reset();
 
     bool isConnected() const;

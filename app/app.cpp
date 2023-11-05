@@ -83,6 +83,6 @@ void App::error() {
 
 void App::timerElapsed(const Timer& timer) {
     if (&timer == &updateTimer_) {
-        baro_.receiveRawData(Asynchronic::IT);
+        baro_.receiveRawData();
     }
 }
