@@ -36,6 +36,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
 
 void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef* hi2c) {}
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c) {}
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+    app.adc_.receiveCompleted(hadc);
+}
 
 static uint32_t i2cError = 0;
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef* hi2c) {
@@ -70,6 +73,6 @@ void App::error() {
 
 void App::timerElapsed(const Timer& timer) {
     if (&timer == &updateTimer_) {
-        adc_.update(Asynchronic::Blocking);
+        adc_.update(Asynchronic::DMA);
     }
 }

@@ -10,6 +10,7 @@ class App {
     friend void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim);
     friend void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef* hi2c);
     friend void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c);
+    friend void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc);
 
     Adc adc_;
     Timer updateTimer_;
