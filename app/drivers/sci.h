@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <functional>
 
-enum class Asynchronic { Blocking, DMA, IT };
+#include "async.h"
 
 using std::function;
 

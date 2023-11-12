@@ -40,7 +40,7 @@ set(EXECUTABLE ${CMAKE_PROJECT_NAME})
 #
 set(sources_SRCS # Modified
     app/app.cpp
-    app/devices/icp10125.cpp
+    app/drivers/adc.cpp
     app/drivers/button.cpp
     app/drivers/gpio.cpp
     app/drivers/sci.cpp
@@ -56,6 +56,8 @@ set(sources_SRCS # Modified
     Core/Src/sysmem.c
     Core/Src/system_stm32wbxx.c
     Core/Startup/startup_stm32wb55rgvx.s
+    Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_adc_ex.c
+    Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_adc.c
     Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c
     Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c
     Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.c

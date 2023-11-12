@@ -11,6 +11,7 @@ static App app;
 
 extern TIM_HandleTypeDef htim2;
 extern I2C_HandleTypeDef hi2c1;
+extern ADC_HandleTypeDef hadc1;
 
 void AppInit() {
     app.init();
@@ -33,12 +34,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     app.updateTimer_.update(htim);
 }
 
-void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef* hi2c) {
-    app.baroSci_.receiveCompleted(hi2c);
-}
-void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c) {
-    app.baroSci_.transmitCompleted(hi2c);
-}
+void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef* hi2c) {}
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef* hi2c) {}
 
 static uint32_t i2cError = 0;
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef* hi2c) {
@@ -49,8 +46,7 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef* hi2c) {
 }
 
 App::App()
-    : baroSci_(&hi2c1, ICP10125::DEVICE_ID),
-      baro_(baroSci_),
+    : adc_(&hadc1, 12),
       updateTimer_(&htim2, 100, 10),
       leds_{
           {LD2_GPIO_Port, LD2_Pin},
@@ -60,17 +56,8 @@ App::App()
 }
 
 void App::init() {
-    baro_.init([&](const SCI& sci) {
-        leds_[0].toggle();
-        leds_[1].toggle();
-    });
-
+    adc_.init();
     HAL_TIM_Base_Start_IT(&htim2);
-
-    if (baroSci_.initialized) {
-        log.info("initialized");
-        leds_[0].toggle();
-    }
 }
 
 void App::process() {
@@ -83,6 +70,6 @@ void App::error() {
 
 void App::timerElapsed(const Timer& timer) {
     if (&timer == &updateTimer_) {
-        baro_.receiveRawData();
+        adc_.update(Asynchronic::Blocking);
     }
 }
